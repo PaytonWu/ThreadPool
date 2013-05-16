@@ -8,6 +8,7 @@
 #include "ths_threadpool.h"
 #include "ths_task.h"
 
+
 #define MAX_LOADSTRING 100
 
 // Global Variables:
@@ -20,26 +21,6 @@ ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
-HWND window;
-
-VOID CALLBACK APCProc(ULONG_PTR data)
-{
-    static int i = 0;
-    static SRWLOCK l;
-    if (0 == i)
-    {
-        ++i;
-        InitializeSRWLock(&l);
-    }
-    //srand(time(NULL));
-
-    //SleepEx(rand(), TRUE);
-    //AcquireSRWLockExclusive(&l);
-    printf("%u\n", data);
-    //ReleaseSRWLockExclusive(&l);
-
-    
-}
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -67,24 +48,23 @@ int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
     ths::threadpool tp(10);
     ths::task t[50];
 
+    class tf : public ths::task
+    {
+    public:
+        UINT_PTR process(LPVOID)
+        {
+            ::Sleep(10000);
+            return 0;
+        }
+    };
+
     for (int i = 0; i < _countof(t); ++i)
     {
         tp.QueueTask(&t[i], reinterpret_cast<LPVOID>(i));
     }
-
-    //DWORD d1 = GetTickCount();
-    //for (int i = 0; i < 100; ++i)
-    //{
-    //    tp.QueueUserAPC(window, WM_USER + 1, APCProc, i);
-    //}
-    //d1 = GetTickCount() - d1;
-
-    //DWORD d2 = GetTickCount();
-    //for (int i = 0; i < 100; ++i)
-    //{
-    //    APCProc(i);
-    //}
-    //d2 = GetTickCount() - d2;
+    tf tf;
+    tp.QueueTask(&tf, NULL);
+    tf.wait_for(INFINITE);
 
 	hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_THREADPOOL));
 
@@ -156,7 +136,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    ShowWindow(hWnd, nCmdShow);
    UpdateWindow(hWnd);
 
-   window = hWnd;
    return TRUE;
 }
 

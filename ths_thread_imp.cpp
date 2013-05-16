@@ -70,9 +70,7 @@ void thread_imp::TaskProc(ULONG_PTR parameter)
     task* task = context->task;
     assert(task);
 
-    UINT_PTR ret = task->process(context->task_resource);
-
-    PostMessage(context->message_window, context->message, static_cast<WPARAM>(ret), static_cast<LPARAM>(parameter));
+    task->task_done(task->process(context->task_resource));
 }
 
 BOOL thread_imp::QueueTask(thread_context* task)

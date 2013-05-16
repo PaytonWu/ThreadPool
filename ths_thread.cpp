@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include <exception>
+#include <new>
 
 #include "ths_thread_imp.h"
 #include "ths_thread.h"
@@ -23,7 +23,7 @@ thread::~thread(void)
     _thread_imp = NULL;
 }
 
-BOOL thread::QueueTask(ths::thread_context* task)
+BOOL thread::QueueTask(details::thread_context* task)
 {
     return _thread_imp->QueueTask(task);
 }

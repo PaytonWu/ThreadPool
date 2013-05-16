@@ -17,16 +17,16 @@ public:
     BOOL    QueueTask(ths::task* task, LPVOID task_resource);
 
 private:
-    BOOL ConstructMessageDispatcherWnd();
-    static LRESULT CALLBACK ths_message_only_wnd_proc(HWND, UINT, WPARAM, LPARAM);
+    //BOOL ConstructMessageDispatcherWnd();
+    //static LRESULT CALLBACK ths_message_only_wnd_proc(HWND, UINT, WPARAM, LPARAM);
 
 private:
-    HWND         _message_wnd;
+    //HWND         _message_wnd;
     LONG_PTR     _thread_count;
     ths::thread* _threads;
     ULONG_PTR    _thread_index;
 
-    static WNDPROC     _prev_message_only_wnd_proc;
+    //static WNDPROC     _prev_message_only_wnd_proc;
 };
 
 }

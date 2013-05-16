@@ -2,10 +2,11 @@
 
 namespace ths
 {
-struct thread_context;
-
 namespace details
 {
+
+struct thread_context;
+
 class thread_imp
 {
 public:

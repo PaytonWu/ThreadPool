@@ -48,6 +48,9 @@
     <ClInclude Include="ths_thread.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ths_task_imp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,6 +72,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ths_thread.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ths_task_imp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

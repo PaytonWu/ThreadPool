@@ -2,14 +2,16 @@
 
 namespace ths
 {
-class task;
+namespace details
+{
 
 struct thread_context
 {
-    LPVOID  task_resource;
-    task*   task;
-    HWND    message_window;
-    UINT    message;
+    LPVOID      task_resource;
+    ths::task*  task;
+    //HWND        message_window;
+    //UINT        message;
 };
 
+}
 }

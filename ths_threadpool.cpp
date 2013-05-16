@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-#include <exception>
+#include <new>
 
 #include "ths_threadpool_imp.h"
 #include "ths_threadpool.h"
@@ -28,4 +28,4 @@ BOOL threadpool::QueueTask(task* task, LPVOID task_resource)
     return _threadpool_imp->QueueTask(task, task_resource);
 }
 
-}
+}   // namespace ths
